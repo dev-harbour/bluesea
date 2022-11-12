@@ -11,8 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define GLFW_EXPOSE_NATIVE_X11
-
 #include <cairo/cairo.h>
 #if defined( GLFW_EXPOSE_NATIVE_WIN32 )
    #include <cairo/cairo-win32.h>
