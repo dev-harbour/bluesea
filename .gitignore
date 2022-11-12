@@ -1,0 +1,8 @@
+# Bluesea
+*.bak
+*.exe
+*.hbc
+*.hbm
+*.hbp
+*.hbmk
+tmp
