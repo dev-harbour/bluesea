@@ -9,17 +9,27 @@ static void cursor_position_callback( GLFWwindow *window, double x, double y )
 {
    pBlueSea s_w = glfwGetWindowUserPointer( window );
 
-   s_w->xpos = x;
-   s_w->ypos = y;
+   s_w->cursorX = x;
+   s_w->cursorY = y;
+}
+
+static void key_callback( GLFWwindow* window, int key, int scancode, int action, int mods )
+{
+   pBlueSea s_w = glfwGetWindowUserPointer( window );
+
+   s_w->keyKey      = key;
+   s_w->keyScancode = scancode;
+   s_w->keyAction   = action;
+   s_w->keyMods     = mods;
 }
 
 static void mouse_button_callback( GLFWwindow *window, int button, int action, int mods )
 {
    pBlueSea s_w = glfwGetWindowUserPointer( window );
 
-   s_w->button = button;
-   s_w->action = action;
-   s_w->mods   = mods;
+   s_w->mouseButton = button;
+   s_w->mouseAction = action;
+   s_w->mouseMods   = mods;
 }
 
 static void hex_to_rgb( cairo_t *cr, uint32_t hexColor )
@@ -64,6 +74,7 @@ pBlueSea bs_CreateWindow( int width, int height, const char *title )
    glfwSetWindowUserPointer( w->window, w );
 
    glfwSetCursorPosCallback( w->window, cursor_position_callback );
+   glfwSetKeyCallback( w->window, key_callback );
    glfwSetMouseButtonCallback( w->window, mouse_button_callback );
 
    glfwSetWindowSizeLimits( w->window, w->width, w->height, GLFW_DONT_CARE , GLFW_DONT_CARE );
@@ -257,11 +268,11 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
    {
    case GLFW_GETKEY:
 
-      ret = glfwGetKey( w->window, par1 ) == GLFW_PRESS ? T : F;
+      ret = ( w->keyKey == par1 ) == GLFW_PRESS ? T : F;
       break;
    case GLFW_GETMOUSEBUTTON:
 
-      ret = glfwGetMouseButton( w->window, par1 ) == GLFW_PRESS ? T : F;
+      ret = ( w->mouseButton  == par1 ) == GLFW_PRESS ? T : F;
       break;
    case GLFW_WINDOWWIDTH:
 
