@@ -208,10 +208,18 @@ typedef struct _BlueSea
    double           ypos;        // new cursor y-coordinate, relative to the top edge of the content area
    const char      *title;       // initial, UTF-8 encoded window title
    bool             closeFlag;   // returns the value of the close flag of the specified window
+   // cursor
+   double           cursorX;
+   double           cursorY;
+   // key
+   int              keyKey;
+   int              keyScancode;
+   int              keyAction;
+   int              keyMods;
    // mouse button
-   int              button;      // mouse button that was pressed or released
-   int              action;      // one of GLFW_PRESS or GLFW_RELEASE, future releases may add more actions
-   int              mods;        // bit field describing which modifier keys were held down
+   int              mouseButton; // mouse button that was pressed or released
+   int              mouseAction; // one of GLFW_PRESS or GLFW_RELEASE, future releases may add more actions
+   int              mouseMods;   // bit field describing which modifier keys were held down
    // color
    int              background;
    // cairo
