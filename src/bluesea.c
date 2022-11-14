@@ -49,6 +49,18 @@ static void hex_to_rgb( cairo_t *cr, uint32_t hexColor )
    cairo_set_source_rgba( cr, r, g, b, 1.0 );
 }
 
+static double *coord( cairo_t *cr, double x, double y )
+{
+   double *a =  malloc( sizeof( double[ 2 ] ) );
+
+   cairo_user_to_device( cr, &x, &y );
+
+   a[ 0 ] = round( x ) + 0.5;
+   a[ 1 ] = round( y ) + 0.5;
+
+   return a;
+}
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 // API functions
 pBlueSea bs_CreateWindow( int width, int height, const char *title )
@@ -186,6 +198,22 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          cairo_move_to( w->cr, par1, par2 );
          cairo_line_to( w->cr, par3, par4 );
          cairo_stroke( w->cr );
+         break;
+
+      case CAIRO_LINES:
+
+         double *p1, *p2;
+         p1 = coord( w->cr, par1, par2 );
+         p2 = coord( w->cr, par3, par4 );
+
+         hex_to_rgb( w->cr, par5 );
+         cairo_set_line_width( w->cr, 1.0 );
+         cairo_move_to( w->cr, p1[ 0 ], p1[ 1 ] );
+         cairo_line_to( w->cr, p2[ 0 ], p2[ 1 ] );
+         cairo_stroke( w->cr );
+
+         free( p1 );
+         free( p2 );
          break;
 
       case CAIRO_RGBTODEC:

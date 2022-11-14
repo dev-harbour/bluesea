@@ -167,6 +167,7 @@ typedef enum iCairo
    CAIRO_GETPIXEL,
    CAIRO_IMAGE,
    CAIRO_LINE,
+   CAIRO_LINES,
    CAIRO_RGBTODEC,
    CAIRO_POLYGON,
    CAIRO_POLYGON_FILLED,
@@ -270,6 +271,7 @@ int glfw_functions();
 // #define CAIRO_GETPIXEL,
 // #define CAIRO_IMAGE,
 #define bs_Line( w, x, y, width, height, hexColor )               cairo_primitive( w, CAIRO_LINE, x, y, width, height, hexColor )
+#define bs_LineS( w, x, y, width, height, hexColor )              cairo_primitive( w, CAIRO_LINES, x, y, width, height, hexColor )
 #define bs_RGBToDec( w, r, g, b )                                 cairo_primitive( w, CAIRO_RGBTODEC, r, g, b )
 // #define CAIRO_POLYGON,
 // #define CAIRO_POLYGON_FILLED,
