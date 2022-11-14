@@ -164,6 +164,7 @@ void end_drawing( pBlueSea w )
 int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6, int par7 )
 {
    int ret = 1;
+   double *p1, *p2;
 
    switch( type )
    {
@@ -202,7 +203,6 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
 
       case CAIRO_LINES:
 
-         double *p1, *p2;
          p1 = coord( w->cr, par1, par2 );
          p2 = coord( w->cr, par3, par4 );
 
@@ -256,6 +256,30 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
             cairo_close_path( w->cr );
          }
          cairo_stroke( w->cr );
+         break;
+
+      case CAIRO_RECTS:
+
+         p1 = coord( w->cr, par1, par2 );
+
+         hex_to_rgb( w->cr, par6 );
+         cairo_set_line_width( w->cr, 1.0 );
+         if( par5 == 0 )
+         {
+            cairo_rectangle( w->cr, p1[ 0 ], p1[ 1 ], par3, par4 );
+         }
+         else
+         {
+            cairo_new_sub_path( w->cr );
+            cairo_arc( w->cr, p1[ 0 ] + par5, p1[ 1 ] + par5, par5, M_PI, 3 * M_PI / 2 );
+            cairo_arc( w->cr, p1[ 0 ] + par3 - par5, p1[ 1 ] + par5, par5, 3 * M_PI / 2, 2 * M_PI );
+            cairo_arc( w->cr, p1[ 0 ] + par3 - par5, p1[ 1 ] + par4 - par5, par5, 0, M_PI / 2 );
+            cairo_arc( w->cr, p1[ 0 ] + par5, p1[ 1 ] + par4 - par5, par5, M_PI / 2, M_PI );
+            cairo_close_path( w->cr );
+         }
+         cairo_stroke( w->cr );
+
+         free( p1 );
          break;
 
       case CAIRO_RECT_FILLED:

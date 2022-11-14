@@ -174,6 +174,7 @@ typedef enum iCairo
    CAIRO_POLYLINE,
    CAIRO_PUTPIXEL,
    CAIRO_RECT,
+   CAIRO_RECTS,
    CAIRO_RECT_FILLED,
    CAIRO_RECT_MULTI_COLOR,
    CAIRO_TEXT,
@@ -278,6 +279,7 @@ int glfw_functions();
 // #define CAIRO_POLYLINE,
 #define bs_PutPixel( w, x, y, hexColor )                          cairo_primitive( w, CAIRO_PUTPIXEL, x, y, hexColor )
 #define bs_Rect( w, x, y, width, height, radius, hexColor )       cairo_primitive( w, CAIRO_RECT, x, y, width, height, radius, hexColor )
+#define bs_RectS( w, x, y, width, height, radius, hexColor )      cairo_primitive( w, CAIRO_RECTS, x, y, width, height, radius, hexColor )
 #define bs_RectFilled( w, x, y, width, height, radius, hexColor ) cairo_primitive( w, CAIRO_RECT_FILLED, x, y, width, height, radius, hexColor )
 // #define CAIRO_RECT_MULTI_COLOR,
 // #define CAIRO_TEXT,
