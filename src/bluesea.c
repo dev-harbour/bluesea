@@ -13,7 +13,7 @@ static void cursor_position_callback( GLFWwindow *window, double x, double y )
    s_w->cursorY = y;
 }
 
-static void key_callback( GLFWwindow* window, int key, int scancode, int action, int mods )
+static void key_callback( GLFWwindow *window, int key, int scancode, int action, int mods )
 {
    pBlueSea s_w = glfwGetWindowUserPointer( window );
 
@@ -30,6 +30,13 @@ static void mouse_button_callback( GLFWwindow *window, int button, int action, i
    s_w->mouseButton = button;
    s_w->mouseAction = action;
    s_w->mouseMods   = mods;
+}
+
+static void window_maximize_callback( GLFWwindow *window, int maximized )
+{
+   pBlueSea s_w = glfwGetWindowUserPointer( window );
+
+   s_w->winMaximized = maximized;
 }
 
 static void hex_to_rgb( cairo_t *cr, uint32_t hexColor )
@@ -76,6 +83,7 @@ pBlueSea bs_CreateWindow( int width, int height, const char *title )
    glfwSetCursorPosCallback( w->window, cursor_position_callback );
    glfwSetKeyCallback( w->window, key_callback );
    glfwSetMouseButtonCallback( w->window, mouse_button_callback );
+   glfwSetWindowMaximizeCallback( w->window, window_maximize_callback );
 
    glfwSetWindowSizeLimits( w->window, w->width, w->height, GLFW_DONT_CARE , GLFW_DONT_CARE );
 
@@ -141,7 +149,7 @@ void end_drawing( pBlueSea w )
    glfwWaitEvents();
 }
 
-int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6 )
+int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6, int par7 )
 {
    int ret = 1;
 
@@ -155,7 +163,6 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
       case CAIRO_BACKGROUND:
 
          w->background = par1;
-
          break;
       case CAIRO_CIRCLE:
 
@@ -180,10 +187,12 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          cairo_line_to( w->cr, par3, par4 );
          cairo_stroke( w->cr );
          break;
+
       case CAIRO_RGBTODEC:
 
          ret = ( ( par1 & 0xff ) << 16 ) + ( ( par2 & 0xff ) << 8 ) + ( par3 & 0xff );
          break;
+
       case CAIRO_POLYGON:
 
          break;
@@ -195,6 +204,10 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          break;
       case CAIRO_PUTPIXEL:
 
+         hex_to_rgb( w->cr, par3 );
+         cairo_set_line_width( w->cr, 1.0 );
+         cairo_rectangle( w->cr, par1, par2, 1.0, 1.0 );
+         cairo_fill( w->cr );
          break;
 
       case CAIRO_RECT:
@@ -216,6 +229,7 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          }
          cairo_stroke( w->cr );
          break;
+
       case CAIRO_RECT_FILLED:
 
          hex_to_rgb( w->cr, par6 );
@@ -235,14 +249,30 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          }
          cairo_fill( w->cr );
          break;
+
       case CAIRO_RECT_MULTI_COLOR:
 
          break;
       case CAIRO_TRIANGLE:
 
+         hex_to_rgb( w->cr, par7 );
+         cairo_set_line_width( w->cr, 1.0 );
+         cairo_move_to( w->cr, par1, par2 );
+         cairo_line_to( w->cr, par3, par4 );
+         cairo_line_to( w->cr, par5, par6 );
+         cairo_close_path( w->cr );
+         cairo_stroke( w->cr );
          break;
+
       case CAIRO_TRIANGLE_FILLED:
 
+         hex_to_rgb( w->cr, par7 );
+         cairo_set_line_width( w->cr, 1.0 );
+         cairo_move_to( w->cr, par1, par2 );
+         cairo_line_to( w->cr, par3, par4 );
+         cairo_line_to( w->cr, par5, par6 );
+         cairo_close_path( w->cr );
+         cairo_fill( w->cr );
          break;
 
       default:
@@ -270,18 +300,27 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
 
       ret = ( w->keyKey == par1 ) == GLFW_PRESS ? T : F;
       break;
+
    case GLFW_GETMOUSEBUTTON:
 
-      ret = ( w->mouseButton  == par1 ) == GLFW_PRESS ? T : F;
+      ret = ( w->mouseButton == par1 ) == GLFW_PRESS ? T : F;
       break;
+
    case GLFW_WINDOWWIDTH:
 
       ret = w->width;
       break;
+
    case GLFW_WINDOWHEIGHT:
 
       ret = w->height;
       break;
+
+   case GLFW_WINMAXIMIZED:
+
+      ret = w->winMaximized;
+      break;
+
    default:
 
       return 0;

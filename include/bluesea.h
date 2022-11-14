@@ -188,6 +188,7 @@ typedef enum iGlfw
    GLFW_GETMOUSEBUTTON,
    GLFW_WINDOWWIDTH,
    GLFW_WINDOWHEIGHT,
+   GLFW_WINMAXIMIZED,
    SIZE_OF_GLFW
 } iGlfw;
 
@@ -204,22 +205,22 @@ typedef struct _BlueSea
    int              height;      // desired height, in screen coordinates
    int              tmp_width;
    int              tmp_height;
-   double           xpos;        // new cursor x-coordinate, relative to the left edge of the content area
-   double           ypos;        // new cursor y-coordinate, relative to the top edge of the content area
    const char      *title;       // initial, UTF-8 encoded window title
    bool             closeFlag;   // returns the value of the close flag of the specified window
    // cursor
-   double           cursorX;
-   double           cursorY;
+   double           cursorX;     // new cursor x-coordinate, relative to the left edge of the content area
+   double           cursorY;     // new cursor y-coordinate, relative to the top edge of the content area
    // key
-   int              keyKey;
-   int              keyScancode;
-   int              keyAction;
-   int              keyMods;
+   int              keyKey;      // the keyboard key that was pressed or released
+   int              keyScancode; // the system-specific scancode of the key
+   int              keyAction;   // GLFW_PRESS, GLFW_RELEASE or GLFW_REPEAT. Future releases may add more actions
+   int              keyMods;     // bit field describing which modifier keys were held down
    // mouse button
    int              mouseButton; // mouse button that was pressed or released
    int              mouseAction; // one of GLFW_PRESS or GLFW_RELEASE, future releases may add more actions
    int              mouseMods;   // bit field describing which modifier keys were held down
+   // window maximized
+   int              winMaximized;// GLFW_TRUE if the window was maximized, or GLFW_FALSE if it was restored
    // color
    int              background;
    // cairo
@@ -273,13 +274,13 @@ int glfw_functions();
 // #define CAIRO_POLYGON,
 // #define CAIRO_POLYGON_FILLED,
 // #define CAIRO_POLYLINE,
-// #define CAIRO_PUTPIXEL,
+#define bs_PutPixel( w, x, y, hexColor )                          cairo_primitive( w, CAIRO_PUTPIXEL, x, y, hexColor )
 #define bs_Rect( w, x, y, width, height, radius, hexColor )       cairo_primitive( w, CAIRO_RECT, x, y, width, height, radius, hexColor )
 #define bs_RectFilled( w, x, y, width, height, radius, hexColor ) cairo_primitive( w, CAIRO_RECT_FILLED, x, y, width, height, radius, hexColor )
 // #define CAIRO_RECT_MULTI_COLOR,
 // #define CAIRO_TEXT,
-// #define CAIRO_TRIANGLE,
-// #define CAIRO_TRIANGLE_FILLED
+#define bs_Triangle( w, ax, ay, bx, by, cx, cy, hexColor )        cairo_primitive( w, CAIRO_TRIANGLE, ax, ay, bx, by, cx, cy, hexColor )
+#define bs_TriangleFill( w, ax, ay, bx, by, cx, cy, hexColor )    cairo_primitive( w, CAIRO_TRIANGLE_FILLED, ax, ay, bx, by, cx, cy, hexColor )
 
 #define bs_Text( w, x, y, text, hexColor ) cairo_text( w, x, y, text, hexColor )
 
@@ -287,5 +288,6 @@ int glfw_functions();
 #define bs_GetMouseButton( w, button ) glfw_functions( w, GLFW_GETMOUSEBUTTON, button )
 #define bs_WinWidth( w )               glfw_functions( w, GLFW_WINDOWWIDTH )
 #define bs_WinHeight( w )              glfw_functions( w, GLFW_WINDOWHEIGHT )
+#define bs_WinMax( w )                 glfw_functions( w, GLFW_WINMAXIMIZED )
 
 #endif /* End BLUESEA_H_ */
