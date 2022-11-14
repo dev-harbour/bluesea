@@ -161,7 +161,7 @@ void end_drawing( pBlueSea w )
    glfwWaitEvents();
 }
 
-int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6, int par7 )
+int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6, int par7 )
 {
    int ret = 1;
    double *p1, *p2;
@@ -327,6 +327,10 @@ int cairo_primitive( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          cairo_fill( w->cr );
          break;
 
+      case CAIRO_WRITE_TO_PNG:
+
+         cairo_surface_write_to_png( w->sf, "output.png" );
+         break;
       default:
          return 0;
    }

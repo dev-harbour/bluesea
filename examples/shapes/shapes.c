@@ -37,6 +37,11 @@ int main( void )
             bs_RectFilled( app, x += 60, 120, 60, 120, NULL, color[ i ] );
          }
 
+         if( bs_GetKey( app, KEY_F1 ) )
+         {
+            bs_WriteToPng( app );
+         }
+
       bs_End( app );
    }
 
