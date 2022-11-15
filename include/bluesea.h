@@ -12,6 +12,10 @@
 #include <string.h>
 
 #include <cairo/cairo.h>
+#include <cairo/cairo-ft.h>
+
+#include <freetype2/freetype/freetype.h>
+
 #if defined( GLFW_EXPOSE_NATIVE_WIN32 )
    #include <cairo/cairo-win32.h>
 #endif
@@ -177,21 +181,29 @@ typedef enum iCairo
    CAIRO_RECTS,
    CAIRO_RECT_FILLED,
    CAIRO_RECT_MULTI_COLOR,
-   CAIRO_TEXT,
    CAIRO_TRIANGLE,
    CAIRO_TRIANGLE_FILLED,
    CAIRO_WRITE_TO_PNG,
    SIZE_OF_CAIRO
 } iCairo;
 
+typedef enum iText
+{
+   TEXT,
+   TEXT_FREE_TYPE,
+   TEXT_TEXT,
+   TEXT_TEXT_EXT,
+   SIZE_OF_TEXT
+} iText;
+
 typedef enum iGlfw
 {
    GLFW,
-   GLFW_GETKEY,
-   GLFW_GETMOUSEBUTTON,
-   GLFW_WINDOWWIDTH,
-   GLFW_WINDOWHEIGHT,
-   GLFW_WINMAXIMIZED,
+   GLFW_GET_KEY,
+   GLFW_GET_MOUSEBUTTON,
+   GLFW_WIN_WIDTH,
+   GLFW_WIN_HEIGHT,
+   GLFW_WIN_MAXIMIZED,
    SIZE_OF_GLFW
 } iGlfw;
 
@@ -227,8 +239,9 @@ typedef struct _BlueSea
    // color
    int              background;
    // cairo
-   cairo_surface_t *sf;
-   cairo_t         *cr;
+   cairo_surface_t   *sf;
+   cairo_t           *cr;
+   cairo_font_face_t *ff;
    //---
 #if defined( GLFW_EXPOSE_NATIVE_WIN32 )
    HDC dc;
@@ -250,9 +263,9 @@ bool bs_GetMouseButton( pBlueSea w, int button );
 //---
 void begin_drawing( pBlueSea w );
 void end_drawing( pBlueSea w );
-int cairo_functions();
-void cairo_text( pBlueSea w, int x, int y, const char *text, int color );
-int glfw_functions();
+int  cairo_functions();
+int  text_functions();
+int  glfw_functions();
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 // macros
@@ -283,17 +296,17 @@ int glfw_functions();
 #define bs_RectS( w, x, y, width, height, radius, hexColor )      cairo_functions( w, CAIRO_RECTS, x, y, width, height, radius, hexColor )
 #define bs_RectFilled( w, x, y, width, height, radius, hexColor ) cairo_functions( w, CAIRO_RECT_FILLED, x, y, width, height, radius, hexColor )
 // #define CAIRO_RECT_MULTI_COLOR,
-// #define CAIRO_TEXT,
 #define bs_Triangle( w, ax, ay, bx, by, cx, cy, hexColor )        cairo_functions( w, CAIRO_TRIANGLE, ax, ay, bx, by, cx, cy, hexColor )
 #define bs_TriangleFill( w, ax, ay, bx, by, cx, cy, hexColor )    cairo_functions( w, CAIRO_TRIANGLE_FILLED, ax, ay, bx, by, cx, cy, hexColor )
 #define bs_WriteToPng( w )                                        cairo_functions( w, CAIRO_WRITE_TO_PNG )
 
-#define bs_Text( w, x, y, text, hexColor ) cairo_text( w, x, y, text, hexColor )
+#define bs_FreeType( w, fileName )         text_functions( w, TEXT_FREE_TYPE, fileName )
+#define bs_Text( w, text, x, y, hexColor ) text_functions( w, TEXT_TEXT, text, x, y, hexColor )
 
-#define bs_GetKey( w, key )            glfw_functions( w, GLFW_GETKEY, key )
-#define bs_GetMouseButton( w, button ) glfw_functions( w, GLFW_GETMOUSEBUTTON, button )
-#define bs_WinWidth( w )               glfw_functions( w, GLFW_WINDOWWIDTH )
-#define bs_WinHeight( w )              glfw_functions( w, GLFW_WINDOWHEIGHT )
-#define bs_WinMax( w )                 glfw_functions( w, GLFW_WINMAXIMIZED )
+#define bs_GetKey( w, key )            glfw_functions( w, GLFW_GET_KEY, key )
+#define bs_GetMouseButton( w, button ) glfw_functions( w, GLFW_GET_MOUSEBUTTON, button )
+#define bs_WinWidth( w )               glfw_functions( w, GLFW_WIN_WIDTH )
+#define bs_WinHeight( w )              glfw_functions( w, GLFW_WIN_HEIGHT )
+#define bs_WinMax( w )                 glfw_functions( w, GLFW_WIN_MAXIMIZED )
 
 #endif /* End BLUESEA_H_ */

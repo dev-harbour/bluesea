@@ -121,6 +121,10 @@ bool bs_MainLoop( pBlueSea w )
 
 bool bs_CloseWindow( pBlueSea w )
 {
+   cairo_font_face_destroy( w->ff );
+   cairo_surface_destroy( w->sf );
+   cairo_destroy( w->cr );
+
    glfwDestroyWindow( w->window );
    free( w );
    glfwTerminate();
@@ -337,13 +341,49 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
    return ret;
 }
 
-void cairo_text( pBlueSea w, int x, int y, const char *text, int color )
+int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3, int par4  )
 {
-   cairo_select_font_face( w->cr, "FreeMono", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL );
-   cairo_set_font_size( w->cr, 18 );
-   hex_to_rgb( w->cr, color );
-   cairo_move_to( w->cr, x, y );
-   cairo_show_text( w->cr, text );
+   int ret = 1;
+   FT_Library alibrary;
+   FT_Error   error;
+   FT_Face    aface;
+
+   switch( type )
+   {
+   case TEXT_FREE_TYPE:
+
+      error = FT_Init_FreeType( &alibrary );
+      if( error )
+      {
+         fprintf( stderr, "Error %d opening library. \n", error );
+         exit( EXIT_FAILURE );
+      }
+
+      error = FT_New_Face( alibrary, par1, 0, &aface);
+      if( error )
+      {
+         fprintf( stderr, "Error %d opening %s \n", error, par1 );
+         exit( EXIT_FAILURE );
+      }
+
+      w->ff = cairo_ft_font_face_create_for_ft_face( aface, 0 );
+      break;
+
+   case TEXT_TEXT:
+
+      cairo_set_font_face( w->cr, w->ff );
+      cairo_set_font_size( w->cr, 20 );
+      hex_to_rgb( w->cr, par4 );
+      cairo_move_to( w->cr, par2, par3 );
+      cairo_show_text( w->cr, par1 );
+      break;
+
+   default:
+
+      return 0;
+   }
+
+   return ret;
 }
 
 int glfw_functions( pBlueSea w, iGlfw type, int par1 )
@@ -352,27 +392,27 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
 
    switch( type )
    {
-   case GLFW_GETKEY:
+   case GLFW_GET_KEY:
 
       ret = ( w->keyKey == par1 ) == GLFW_PRESS ? T : F;
       break;
 
-   case GLFW_GETMOUSEBUTTON:
+   case GLFW_GET_MOUSEBUTTON:
 
       ret = ( w->mouseButton == par1 ) == GLFW_PRESS ? T : F;
       break;
 
-   case GLFW_WINDOWWIDTH:
+   case GLFW_WIN_WIDTH:
 
       ret = w->width;
       break;
 
-   case GLFW_WINDOWHEIGHT:
+   case GLFW_WIN_HEIGHT:
 
       ret = w->height;
       break;
 
-   case GLFW_WINMAXIMIZED:
+   case GLFW_WIN_MAXIMIZED:
 
       ret = w->winMaximized;
       break;
