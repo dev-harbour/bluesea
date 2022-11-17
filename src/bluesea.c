@@ -162,7 +162,8 @@ void end_drawing( pBlueSea w )
    cairo_paint( w->cr );
    cairo_surface_flush( w->sf );
 
-   glfwWaitEvents();
+   //glfwWaitEvents();
+   glfwPollEvents();
 }
 
 int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6, int par7 )
@@ -183,8 +184,28 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          break;
       case CAIRO_CIRCLE:
 
+         p1 = coord( w->cr, par1, par2 );
+
+         hex_to_rgb( w->cr, par4 );
+         cairo_set_line_width( w->cr, 1.0 );
+         cairo_arc( w->cr, p1[ 0 ], p1[ 1 ], par3, 0.0, 2 * M_PI );
+         cairo_stroke( w->cr );
+
+         free( p1 );
          break;
+
       case CAIRO_CIRCLE_FILLED:
+
+         hex_to_rgb( w->cr, par4 );
+         cairo_set_line_width( w->cr, 1.0 );
+         cairo_arc( w->cr, par1, par2, par3, 0, 2 * M_PI );
+         cairo_fill( w->cr );
+         break;
+
+      case CAIRO_ELLIPSE:
+
+         break;
+      case CAIRO_ELLIPSE_FILLED:
 
          break;
       case CAIRO_CURVE:

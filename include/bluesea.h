@@ -168,6 +168,8 @@ typedef enum iCairo
    CAIRO_CIRCLE,
    CAIRO_CIRCLE_FILLED,
    CAIRO_CURVE,
+   CAIRO_ELLIPSE,
+   CAIRO_ELLIPSE_FILLED,
    CAIRO_GETPIXEL,
    CAIRO_IMAGE,
    CAIRO_LINE,
@@ -280,8 +282,8 @@ int  glfw_functions();
 // #define CAIRO_ARC
 // #define CAIRO_ARC_FILLED,
 #define bs_Background( w, hexColor )                              cairo_functions( w, CAIRO_BACKGROUND, hexColor )
-// #define CAIRO_CIRCLE,
-// #define CAIRO_CIRCLE_FILLED,
+#define bs_Circle( w, x, y, radius, hexColor )                    cairo_functions( w, CAIRO_CIRCLE, x, y, radius, hexColor )
+#define bs_CircleFilled( w, x, y, radius, hexColor )              cairo_functions( w, CAIRO_CIRCLE_FILLED, x, y, radius, hexColor )
 // #define CAIRO_CURVE,
 // #define CAIRO_GETPIXEL,
 // #define CAIRO_IMAGE,
