@@ -1,6 +1,7 @@
 /*
  *
  */
+
 #include "bluesea.h"
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
@@ -21,6 +22,18 @@ static void key_callback( GLFWwindow *window, int key, int scancode, int action,
    s_w->keyScancode = scancode;
    s_w->keyAction   = action;
    s_w->keyMods     = mods;
+
+   if( action != GLFW_PRESS )
+      return;
+
+   switch( key )
+   {
+      case KEY_PRINT_SCREEN:
+
+         cairo_surface_write_to_png( s_w->sf, "output.png" );
+         break;
+
+   }
 }
 
 static void mouse_button_callback( GLFWwindow *window, int button, int action, int mods )
@@ -82,7 +95,7 @@ pBlueSea bs_CreateWindow( int width, int height, const char *title )
    w->tmp_width  = 0;
    w->tmp_height = 0;
 
-   w->window = glfwCreateWindow( w->width, w->height, title, NULL, NULL );
+   w->window = glfwCreateWindow( w->width, w->height, w->title, NULL, NULL );
    if( ! w->window )
    {
       free( w );
@@ -161,9 +174,6 @@ void end_drawing( pBlueSea w )
    cairo_pop_group_to_source( w->cr );
    cairo_paint( w->cr );
    cairo_surface_flush( w->sf );
-
-   //glfwWaitEvents();
-   glfwPollEvents();
 }
 
 int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6, int par7 )
@@ -184,20 +194,16 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          break;
       case CAIRO_CIRCLE:
 
-         p1 = coord( w->cr, par1, par2 );
-
          hex_to_rgb( w->cr, par4 );
          cairo_set_line_width( w->cr, 1.0 );
-         cairo_arc( w->cr, p1[ 0 ], p1[ 1 ], par3, 0.0, 2 * M_PI );
+         cairo_arc( w->cr, par1, par2, par3, 0, 2 * M_PI );
          cairo_stroke( w->cr );
 
-         free( p1 );
          break;
 
       case CAIRO_CIRCLE_FILLED:
 
          hex_to_rgb( w->cr, par4 );
-         cairo_set_line_width( w->cr, 1.0 );
          cairo_arc( w->cr, par1, par2, par3, 0, 2 * M_PI );
          cairo_fill( w->cr );
          break;
@@ -310,7 +316,6 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
       case CAIRO_RECT_FILLED:
 
          hex_to_rgb( w->cr, par6 );
-         cairo_set_line_width( w->cr, 1.0 );
          if( par5 == 0 )
          {
             cairo_rectangle( w->cr, par1, par2, par3, par4 );
@@ -344,7 +349,6 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
       case CAIRO_TRIANGLE_FILLED:
 
          hex_to_rgb( w->cr, par7 );
-         cairo_set_line_width( w->cr, 1.0 );
          cairo_move_to( w->cr, par1, par2 );
          cairo_line_to( w->cr, par3, par4 );
          cairo_line_to( w->cr, par5, par6 );
@@ -352,10 +356,6 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          cairo_fill( w->cr );
          break;
 
-      case CAIRO_WRITE_TO_PNG:
-
-         cairo_surface_write_to_png( w->sf, "output.png" );
-         break;
       default:
          return 0;
    }
@@ -438,12 +438,28 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
       ret = w->winMaximized;
       break;
 
+   case GLFW_POLLEVENTS:
+
+      glfwPollEvents();
+      break;
+
+   case GLFW_WAITEVENTS:
+
+      glfwWaitEvents();
+      break;
+
+   case GLFW_WAITEVENTSTIMEOUT:
+
+      glfwWaitEventsTimeout( par1 );
+      break;
+
    default:
 
       return 0;
    }
 
    return ret;
+
 }
 
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */

@@ -36,6 +36,8 @@ int main( void )
          bs_Circle( app, x, y, radius, 0x000000 );
 
       bs_End( app );
+
+      bs_PollEvents()
    }
 
    bs_CloseWindow( app );

@@ -17,6 +17,8 @@ int main( void )
          bs_Background( app, 0x006994 );
 
       bs_End( app );
+
+      bs_WaitEvents();
    }
 
    bs_CloseWindow( app );
