@@ -37,7 +37,7 @@ int main( void )
 
       bs_End( app );
 
-      bs_PollEvents()
+      bs_PollEvents( app );
    }
 
    bs_CloseWindow( app );

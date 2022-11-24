@@ -43,6 +43,8 @@ int main( void )
          }
 
       bs_End( app );
+
+      bs_WaitEvents( app );
    }
 
    bs_CloseWindow( app );

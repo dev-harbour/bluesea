@@ -305,13 +305,13 @@ int  glfw_functions();
 #define bs_FreeType( w, fileName )         text_functions( w, TEXT_FREE_TYPE, fileName )
 #define bs_Text( w, text, x, y, hexColor ) text_functions( w, TEXT_TEXT, text, x, y, hexColor )
 
-#define bs_GetKey( w, key )             glfw_functions( w, GLFW_GET_KEY, key )
-#define bs_GetMouseButton( w, button )  glfw_functions( w, GLFW_GET_MOUSEBUTTON, button )
-#define bs_WinWidth( w )                glfw_functions( w, GLFW_WIN_WIDTH )
-#define bs_WinHeight( w )               glfw_functions( w, GLFW_WIN_HEIGHT )
-#define bs_WinMaximized( w )            glfw_functions( w, GLFW_WIN_MAXIMIZED )
-#define bs_PollEvents()                 glfw_functions( w, GLFW_POLLEVENTS )
-#define bs_WaitEvents()                 glfw_functions( w, GLFW_WAITEVENTS )
-#define bs_WaitEventsTimeout( timeout ) glfw_functions( w, GLFW_WAITEVENTSTIMEOUT, timeout )
+#define bs_GetKey( w, key )                glfw_functions( w, GLFW_GET_KEY, key )
+#define bs_GetMouseButton( w, button )     glfw_functions( w, GLFW_GET_MOUSEBUTTON, button )
+#define bs_WinWidth( w )                   glfw_functions( w, GLFW_WIN_WIDTH )
+#define bs_WinHeight( w )                  glfw_functions( w, GLFW_WIN_HEIGHT )
+#define bs_WinMaximized( w )               glfw_functions( w, GLFW_WIN_MAXIMIZED )
+#define bs_PollEvents( w )                 glfw_functions( w, GLFW_POLLEVENTS )
+#define bs_WaitEvents( w )                 glfw_functions( w, GLFW_WAITEVENTS )
+#define bs_WaitEventsTimeout( w, timeout ) glfw_functions( w, GLFW_WAITEVENTSTIMEOUT, timeout )
 
 #endif /* End BLUESEA_H_ */
