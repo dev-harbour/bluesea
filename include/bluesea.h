@@ -167,10 +167,13 @@ typedef enum iCairo
    CAIRO_BACKGROUND,
    CAIRO_CIRCLE,
    CAIRO_CIRCLE_FILLED,
+   CAIRO_CIRCLELINEWIDTH,
    CAIRO_CURVE,
    CAIRO_ELLIPSE,
    CAIRO_ELLIPSE_FILLED,
    CAIRO_GETPIXEL,
+   CAIRO_HEXAGON,
+   CAIRO_HEXAGON_FILLED,
    CAIRO_IMAGE,
    CAIRO_LINE,
    CAIRO_LINES,
@@ -281,26 +284,29 @@ int  glfw_functions();
 
 // #define CAIRO_ARC
 // #define CAIRO_ARC_FILLED,
-#define bs_Background( w, hexColor )                              cairo_functions( w, CAIRO_BACKGROUND, hexColor )
-#define bs_Circle( w, x, y, radius, hexColor )                    cairo_functions( w, CAIRO_CIRCLE, x, y, radius, hexColor )
-#define bs_CircleFilled( w, x, y, radius, hexColor )              cairo_functions( w, CAIRO_CIRCLE_FILLED, x, y, radius, hexColor )
+#define bs_Background( w, hexColor )                               cairo_functions( w, CAIRO_BACKGROUND, hexColor )
+#define bs_Circle( w, x, y, radius, hexColor )                     cairo_functions( w, CAIRO_CIRCLE, x, y, radius, hexColor )
+#define bs_CircleFilled( w, x, y, radius, hexColor )               cairo_functions( w, CAIRO_CIRCLE_FILLED, x, y, radius, hexColor )
+#define bs_CircleLineWidth( w, x, y, radius, lineWidth, hexColor ) cairo_functions( w, CAIRO_CIRCLELINEWIDTH, x, y, radius, lineWidth, hexColor )
 // #define CAIRO_CURVE,
 // #define CAIRO_GETPIXEL,
+#define bs_Hexagon( w, x, y, radius, hexColor )                    cairo_functions( w, CAIRO_HEXAGON, x, y, radius, hexColor )
+#define bs_HexagonFilled( w, x, y, radius, hexColor )              cairo_functions( w, CAIRO_HEXAGON_FILLED, x, y, radius, hexColor )
 // #define CAIRO_IMAGE,
-#define bs_Line( w, x, y, width, height, hexColor )               cairo_functions( w, CAIRO_LINE, x, y, width, height, hexColor )
-#define bs_LineS( w, x, y, width, height, hexColor )              cairo_functions( w, CAIRO_LINES, x, y, width, height, hexColor )
-#define bs_RGBToDec( w, r, g, b )                                 cairo_functions( w, CAIRO_RGBTODEC, r, g, b )
+#define bs_Line( w, x, y, width, height, hexColor )                cairo_functions( w, CAIRO_LINE, x, y, width, height, hexColor )
+#define bs_LineS( w, x, y, width, height, hexColor )               cairo_functions( w, CAIRO_LINES, x, y, width, height, hexColor )
+#define bs_RGBToDec( w, r, g, b )                                  cairo_functions( w, CAIRO_RGBTODEC, r, g, b )
 // #define CAIRO_POLYGON,
 // #define CAIRO_POLYGON_FILLED,
 // #define CAIRO_POLYLINE,
-#define bs_PutPixel( w, x, y, hexColor )                          cairo_functions( w, CAIRO_PUTPIXEL, x, y, hexColor )
-#define bs_Rect( w, x, y, width, height, radius, hexColor )       cairo_functions( w, CAIRO_RECT, x, y, width, height, radius, hexColor )
-#define bs_RectS( w, x, y, width, height, radius, hexColor )      cairo_functions( w, CAIRO_RECTS, x, y, width, height, radius, hexColor )
-#define bs_RectFilled( w, x, y, width, height, radius, hexColor ) cairo_functions( w, CAIRO_RECT_FILLED, x, y, width, height, radius, hexColor )
+#define bs_PutPixel( w, x, y, hexColor )                           cairo_functions( w, CAIRO_PUTPIXEL, x, y, hexColor )
+#define bs_Rect( w, x, y, width, height, radius, hexColor )        cairo_functions( w, CAIRO_RECT, x, y, width, height, radius, hexColor )
+#define bs_RectS( w, x, y, width, height, radius, hexColor )       cairo_functions( w, CAIRO_RECTS, x, y, width, height, radius, hexColor )
+#define bs_RectFilled( w, x, y, width, height, radius, hexColor )  cairo_functions( w, CAIRO_RECT_FILLED, x, y, width, height, radius, hexColor )
 // #define CAIRO_RECT_MULTI_COLOR,
-#define bs_Triangle( w, ax, ay, bx, by, cx, cy, hexColor )        cairo_functions( w, CAIRO_TRIANGLE, ax, ay, bx, by, cx, cy, hexColor )
-#define bs_TriangleFill( w, ax, ay, bx, by, cx, cy, hexColor )    cairo_functions( w, CAIRO_TRIANGLE_FILLED, ax, ay, bx, by, cx, cy, hexColor )
-#define bs_WriteToPng( w )                                        cairo_functions( w, CAIRO_WRITE_TO_PNG )
+#define bs_Triangle( w, x, y, x1, y1, x2, y2, hexColor )           cairo_functions( w, CAIRO_TRIANGLE, x, y, x1, y1, x2, y2, hexColor )
+#define bs_TriangleFilled( w, x, y, x1, y1, x2, y2, hexColor )     cairo_functions( w, CAIRO_TRIANGLE_FILLED, x, y, x1, y1, x2, y2, hexColor )
+#define bs_WriteToPng( w )                                         cairo_functions( w, CAIRO_WRITE_TO_PNG )
 
 #define bs_FreeType( w, fileName )         text_functions( w, TEXT_FREE_TYPE, fileName )
 #define bs_Text( w, text, x, y, hexColor ) text_functions( w, TEXT_TEXT, text, x, y, hexColor )

@@ -1,19 +1,14 @@
-# bluesea
+/*
+ *
+ */
 
-Playground with graphics, with the use of [GLFW](https://www.glfw.org/) and [Cairo](https://gitlab.freedesktop.org/cairo/cairo).
-
-### Getting Started
-
-For more info see [getting started](examples/README.md).
-
-``` c
 #include "bluesea.h"
 
 int main( void )
 {
    pBlueSea app;
+   int x, y, x1, y1, x2, y2, w, h;
    double a;
-   int x, y, x1, y1, x2, y2;
    int r = 200;
    uint8_t i;
 
@@ -57,5 +52,3 @@ int main( void )
 
    return 0;
 }
-```
-![Logo C](examples/logo/logo_c.png "logo_c.c" )

@@ -179,19 +179,25 @@ void end_drawing( pBlueSea w )
 int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int par4, int par5, int par6, int par7 )
 {
    int ret = 1;
-   double *p1, *p2;
+   double *p1 = NULL;
+   double *p2 = NULL;
+   double a = 0;
+   double x1 = 0;
+   double y1 = 0;
 
    switch( type )
    {
       case CAIRO_ARC:
          break;
-      case CAIRO_ARC_FILLED:
 
+      case CAIRO_ARC_FILLED:
          break;
+
       case CAIRO_BACKGROUND:
 
          w->background = par1;
          break;
+
       case CAIRO_CIRCLE:
 
          hex_to_rgb( w->cr, par4 );
@@ -208,21 +214,65 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
          cairo_fill( w->cr );
          break;
 
+      case CAIRO_CIRCLELINEWIDTH:
+
+         hex_to_rgb( w->cr, par5 );
+         cairo_set_line_width( w->cr, par4 );
+         cairo_arc( w->cr, par1, par2, par3, 0, 2 * M_PI );
+         cairo_stroke( w->cr );
+         break;
+
       case CAIRO_ELLIPSE:
 
          break;
+
       case CAIRO_ELLIPSE_FILLED:
 
          break;
+
       case CAIRO_CURVE:
 
          break;
+
       case CAIRO_GETPIXEL:
 
          break;
+
+      case CAIRO_HEXAGON:
+
+         hex_to_rgb( w->cr, par4 );
+         cairo_set_line_width( w->cr, 6.0 );
+         a = 2 * M_PI / 6;
+         x1 = par1 + par3 * cos( a * 5 + M_PI_2 );
+         y1 = par2 + par3 * sin( a * 5 + M_PI_2 );
+         cairo_move_to( w->cr, x1, y1 );
+         for( uint8_t i = 0; i < 6; i++ )
+         {
+            cairo_line_to( w->cr, par1 + par3 * cos( a * i + M_PI_2 ), par2 + par3 * sin( a * i + M_PI_2 ) );
+         }
+         cairo_close_path( w->cr );
+         cairo_stroke( w->cr );
+         break;
+
+      case CAIRO_HEXAGON_FILLED:
+
+         hex_to_rgb( w->cr, par4 );
+         a = 2 * M_PI / 6;
+         x1 = par1 + par3 * cos( a * 5 + M_PI_2 );
+         y1 = par2 + par3 * sin( a * 5 + M_PI_2 );
+         cairo_move_to( w->cr, x1, y1 );
+         for( uint8_t i = 0; i < 6; i++ )
+         {
+            cairo_line_to( w->cr, par1 + par3 * cos( a * i + M_PI_2 ), par2 + par3 * sin( a * i + M_PI_2 ) );
+         }
+         cairo_close_path( w->cr );
+         cairo_fill( w->cr );
+         break;
+
       case CAIRO_IMAGE:
 
          break;
+
       case CAIRO_LINE:
 
          hex_to_rgb( w->cr, par5 );
@@ -255,12 +305,15 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
       case CAIRO_POLYGON:
 
          break;
+
       case CAIRO_POLYGON_FILLED:
 
          break;
+
       case CAIRO_POLYLINE:
 
          break;
+
       case CAIRO_PUTPIXEL:
 
          hex_to_rgb( w->cr, par3 );
@@ -335,6 +388,7 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
       case CAIRO_RECT_MULTI_COLOR:
 
          break;
+
       case CAIRO_TRIANGLE:
 
          hex_to_rgb( w->cr, par7 );
