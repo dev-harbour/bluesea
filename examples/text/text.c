@@ -17,7 +17,7 @@ int main( void )
       bs_Begin( app );
 
          bs_Background( app, 0xffffff );
-         bs_Text( app, "Test", ( bs_WinWidth( app ) - 36 ) / 2, ( bs_WinHeight( app ) + 11 ) / 2, 0x000000 );
+         bs_Text( app, "FreeType test", ( bs_WinWidth( app ) - 117 ) / 2, ( bs_WinHeight( app ) + 11 ) / 2, 0x000000 );
 
       bs_End( app );
 
