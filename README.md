@@ -30,6 +30,7 @@ int main( void )
 
          a = 2 * M_PI / 6;
 
+         bs_Hexagon( app, x, y, r + 10, 0xfaf2fe );
          bs_HexagonFilled( app, x, y, r, 0x5c6bbf );
          for( i = 0; i < 2; i++ )
          {
