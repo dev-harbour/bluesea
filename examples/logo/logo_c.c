@@ -12,7 +12,7 @@ int main( void )
    int r = 200;
    uint8_t i;
 
-   app = bs_CreateWindow( 720, 450, "Logo C" );
+   app = bs_CreateWindow( 830, 450, "Logo C" );
 
    while( ! bs_MainLoop( app ) && ! bs_GetKey( app, KEY_ESCAPE ) )
    {

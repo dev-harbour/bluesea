@@ -447,7 +447,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
    case TEXT_CONST:
 
       cairo_set_font_face( w->cr, w->ff );
-      cairo_set_font_size( w->cr, 20 );
+      cairo_set_font_size( w->cr, 18 );
       hex_to_rgb( w->cr, par4 );
       cairo_move_to( w->cr, par2, par3 );
       cairo_show_text( w->cr, par1 );

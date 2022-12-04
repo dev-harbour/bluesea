@@ -12,12 +12,12 @@ For more info see [getting started](examples/README.md).
 int main( void )
 {
    pBlueSea app;
-   double a;
    int x, y, x1, y1, x2, y2;
+   double a;
    int r = 200;
    uint8_t i;
 
-   app = bs_CreateWindow( 720, 450, "Logo C" );
+   app = bs_CreateWindow( 830, 450, "Logo C" );
 
    while( ! bs_MainLoop( app ) && ! bs_GetKey( app, KEY_ESCAPE ) )
    {
