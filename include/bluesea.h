@@ -196,8 +196,10 @@ typedef enum iText
 {
    TEXT,
    TEXT_FREE_TYPE,
-   TEXT_TEXT,
-   TEXT_TEXT_EXT,
+   TEXT_CONST,
+   TEXT_EXTRA,
+   TEXT_WIDTH,
+   TEXT_HEIGHT,
    SIZE_OF_TEXT
 } iText;
 
@@ -247,9 +249,10 @@ typedef struct _BlueSea
    // color
    int              background;
    // cairo
-   cairo_surface_t   *sf;
-   cairo_t           *cr;
-   cairo_font_face_t *ff;
+   cairo_surface_t     *sf;
+   cairo_t             *cr;
+   cairo_font_face_t   *ff;
+   cairo_text_extents_t te;
    //---
 #if defined( GLFW_EXPOSE_NATIVE_WIN32 )
    HDC dc;
@@ -308,8 +311,11 @@ int  glfw_functions();
 #define bs_TriangleFilled( w, x, y, x1, y1, x2, y2, hexColor )     cairo_functions( w, CAIRO_TRIANGLE_FILLED, x, y, x1, y1, x2, y2, hexColor )
 #define bs_WriteToPng( w )                                         cairo_functions( w, CAIRO_WRITE_TO_PNG )
 
-#define bs_FreeType( w, fileName )         text_functions( w, TEXT_FREE_TYPE, fileName )
-#define bs_Text( w, text, x, y, hexColor ) text_functions( w, TEXT_TEXT, text, x, y, hexColor )
+#define bs_FreeType( w, fileName )                 text_functions( w, TEXT_FREE_TYPE, fileName )
+#define bs_Text( w, text, x, y, hexColor )         text_functions( w, TEXT_CONST, text, x, y, hexColor )
+#define bs_TextEx( w, text, x, y, size, hexColor ) text_functions( w, TEXT_EXTRA, text, x, y, size, hexColor )
+#define bs_TextWidth( w, text, size )              text_functions( w, TEXT_WIDTH, text, size )
+#define bs_TextHeight( w, text, size )             text_functions( w, TEXT_HEIGHT, text, size )
 
 #define bs_GetKey( w, key )                glfw_functions( w, GLFW_GET_KEY, key )
 #define bs_GetMouseButton( w, button )     glfw_functions( w, GLFW_GET_MOUSEBUTTON, button )
