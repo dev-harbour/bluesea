@@ -10,7 +10,7 @@ int main( void )
 
    app = bs_CreateWindow( 720, 450, "FreeType test" );
 
-   bs_FreeType( app, "../../font/9x18.ttf" );
+   bs_FreeType( app, "../../font/9x18.bdf" );
 
    while( ! bs_MainLoop( app ) && ! bs_GetKey( app, KEY_ESCAPE ) )
    {
