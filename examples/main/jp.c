@@ -11,7 +11,7 @@ int main( void )
 
    app = bs_CreateWindow( 820, 450, text );
 
-   bs_FreeType( app, "../../font/18x18ja.bdf" );
+   bs_FreeType( app, "../../font/18x18ja.pcf" );
 
    while( ! bs_MainLoop( app ) && ! bs_GetKey( app, KEY_ESCAPE ) )
    {
