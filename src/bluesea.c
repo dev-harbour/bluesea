@@ -457,7 +457,6 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
 
       cairo_set_font_face( w->cr, w->ff );
       cairo_set_font_size( w->cr, par4 );
-      cairo_text_extents( w->cr, par1, &w->te );
       hex_to_rgb( w->cr, par5 );
       cairo_move_to( w->cr, par2, par3 );
       cairo_show_text( w->cr, par1 );
@@ -469,7 +468,6 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, par2 );
       cairo_text_extents( w->cr, par1, &w->te );
       ret = w->te.width;
-      printf( "textWidth %i \n", ret );
       break;
 
    case TEXT_HEIGHT:
@@ -526,7 +524,6 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
    case GLFW_WAITEVENTS:
 
       glfwWaitEvents();
-      fflush( stdout );
       break;
 
    case GLFW_WAITEVENTSTIMEOUT:
