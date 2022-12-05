@@ -13,7 +13,7 @@
 
    ```
       $ cd examples/main
-      $ gcc main.c -o main -I ../../include -L ../../lib/win/mingw64 -lbluesea -lglfw3 -lcairo -lm $(pkg-config --cflags freetype2) $(pkg-config --libs freetype2)
+      $ gcc pl.c -o pl -I ../../include -L ../../lib/win/mingw64 -lbluesea -lglfw3 -lcairo -lm $(pkg-config --cflags freetype2) $(pkg-config --libs freetype2)
    ```
 
 ## Installing on Linux
@@ -30,7 +30,7 @@
 
    ```
       $ cd examples/main
-      $ gcc main.c -o main -I ../../include -L ../../lib/linux/gcc -lbluesea -lglfw -lcairo -lm $(pkg-config --cflags freetype2) $(pkg-config --libs freetype2)
+      $ gcc pl.c -o pl -I ../../include -L ../../lib/linux/gcc -lbluesea -lglfw -lcairo -lm $(pkg-config --cflags freetype2) $(pkg-config --libs freetype2)
    ```
 
 ---
