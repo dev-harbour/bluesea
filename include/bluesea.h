@@ -188,7 +188,6 @@ typedef enum iCairo
    CAIRO_RECT_MULTI_COLOR,
    CAIRO_TRIANGLE,
    CAIRO_TRIANGLE_FILLED,
-   CAIRO_WRITE_TO_PNG,
    SIZE_OF_CAIRO
 } iCairo;
 
@@ -309,7 +308,6 @@ int  glfw_functions();
 // #define CAIRO_RECT_MULTI_COLOR,
 #define bs_Triangle( w, x, y, x1, y1, x2, y2, hexColor )           cairo_functions( w, CAIRO_TRIANGLE, x, y, x1, y1, x2, y2, hexColor )
 #define bs_TriangleFilled( w, x, y, x1, y1, x2, y2, hexColor )     cairo_functions( w, CAIRO_TRIANGLE_FILLED, x, y, x1, y1, x2, y2, hexColor )
-#define bs_WriteToPng( w )                                         cairo_functions( w, CAIRO_WRITE_TO_PNG )
 
 #define bs_FreeType( w, fileName )                 text_functions( w, TEXT_FREE_TYPE, fileName )
 #define bs_Text( w, text, x, y, hexColor )         text_functions( w, TEXT_CONST, text, x, y, hexColor )
