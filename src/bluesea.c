@@ -74,6 +74,12 @@ static double *coord( cairo_t *cr, double x, double y )
    return a;
 }
 
+static char *malloc_strdup( const char *text )
+{
+   size_t len = strlen( text ) + 1;
+   return memcpy( malloc( len ), text, len );
+}
+
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 // API functions
 pBlueSea bs_CreateWindow( int width, int height, const char *title )
@@ -450,7 +456,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, 18 );
       hex_to_rgb( w->cr, par4 );
       cairo_move_to( w->cr, par2, par3 );
-      cairo_show_text( w->cr, par1 );
+      cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL ); // this is contradictory but added
       break;
 
    case TEXT_EXTRA:
