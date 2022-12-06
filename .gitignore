@@ -3,5 +3,6 @@
 *.exe
 *.hbc
 *.hbm
+*.hbp
 *.hbmk
 tmp
