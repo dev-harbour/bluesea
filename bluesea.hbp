@@ -1,0 +1,27 @@
+-hblib
+-inc
+
+-olib/${hb_plat}/${hb_comp}/${hb_name}
+
+-w3 -es2 -gc3
+
+-deppkgname=freetype:freetype{pacman}
+-deppkgname=freetype:mingw-w64-i686-freetype{msys2&x86}
+-deppkgname=freetype:mingw-w64-x86_64-freetype{msys2&x86_64}
+-depkeyhead=freetype:ft2build.h
+-depcontrol=freetype:${HB_WITH_FREETYPE}
+-depincpath=freetype:/usr/include/freetype2
+-depincpath=freetype:/usr/local/include/freetype2
+-depincpath=freetype:/usr/local/opt/freetype2/include/freetype2
+
+-cflag={win}-DGLFW_EXPOSE_NATIVE_WIN32
+-cflag={linux}-DGLFW_EXPOSE_NATIVE_X11
+
+-iinclude
+
+src/*.c
+
+-instfile=inc:include/*.h
+
+$hb_pkg_dynlib.hbm
+$hb_pkg_install.hbm
