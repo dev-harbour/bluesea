@@ -25,7 +25,7 @@ int main( void )
       bs_Begin( app );
 
          bs_Background( app, 0xffffff );
-         bs_TextEx( app, text, ( bs_WinWidth( app ) - textWidth ) / 2, ( bs_WinHeight( app ) + 11 ) / 2, TEXTSIZE, 0x000000 );
+         bs_TextEx( app, text, ( bs_WinWidth( app ) - textWidth ) / 2, ( bs_WinHeight( app ) + textHeight ) / 2, TEXTSIZE, 0x000000 );
 
       bs_End( app );
 
