@@ -1,3 +1,5 @@
+-*-text-*-
+
 The identity of the designer(s) of the original ASCII repertoire and
 the later Latin-1 extension of the misc-fixed BDF fonts appears to
 have been lost in history. (It is likely that many of these 7-bit
