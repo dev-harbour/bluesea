@@ -140,6 +140,9 @@ bool bs_MainLoop( pBlueSea w )
 
 bool bs_CloseWindow( pBlueSea w )
 {
+   FT_Done_Face( w->face );
+   FT_Done_FreeType( w->library );
+
    cairo_font_face_destroy( w->ff );
 
    glfwDestroyWindow( w->window );
@@ -425,29 +428,30 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
 int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3, int par4, int par5  )
 {
    int ret = 1;
-   FT_Library alibrary;
-   FT_Error   error;
-   FT_Face    aface;
 
    switch( type )
    {
    case TEXT_FREE_TYPE:
 
-      error = FT_Init_FreeType( &alibrary );
+      FT_Error error;
+      static cairo_user_data_key_t key;
+
+      error = FT_Init_FreeType( &w->library );
       if( error )
       {
          fprintf( stderr, "Error %d opening library. \n", error );
          exit( EXIT_FAILURE );
       }
 
-      error = FT_New_Face( alibrary, par1, 0, &aface);
+      error = FT_New_Face( w->library, par1, 0, &w->face);
       if( error )
       {
          fprintf( stderr, "Error %d opening %s \n", error, par1 );
          exit( EXIT_FAILURE );
       }
 
-      w->ff = cairo_ft_font_face_create_for_ft_face( aface, 0 );
+      w->ff = cairo_ft_font_face_create_for_ft_face( w->face, 0 );
+      cairo_font_face_set_user_data( w->ff, &key, (void *) w->face, NULL );
       break;
 
    case TEXT_CONST:
@@ -466,7 +470,6 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       hex_to_rgb( w->cr, par5 );
       cairo_move_to( w->cr, par2, par3 );
       cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL ); // this is contradictory but added
-
       break;
 
    case TEXT_WIDTH:
