@@ -253,6 +253,7 @@ typedef struct _BlueSea
    cairo_t             *cr;
    cairo_font_face_t   *ff;
    cairo_text_extents_t te;
+   cairo_font_extents_t fe;
    // FreeType
    FT_Library           library;
    FT_Face              face;
