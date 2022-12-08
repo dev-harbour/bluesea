@@ -210,6 +210,8 @@ typedef enum iGlfw
    GLFW_GET_MOUSEBUTTON,
    GLFW_WIN_WIDTH,
    GLFW_WIN_HEIGHT,
+   GLFW_WIN_MAXCOL,
+   GLFW_WIN_MAXROW,
    GLFW_WIN_MAXIMIZED,
    GLFW_POLLEVENTS,
    GLFW_WAITEVENTS,
@@ -325,6 +327,8 @@ int  glfw_functions();
 #define bs_GetMouseButton( w, button )     glfw_functions( w, GLFW_GET_MOUSEBUTTON, button )
 #define bs_WinWidth( w )                   glfw_functions( w, GLFW_WIN_WIDTH )
 #define bs_WinHeight( w )                  glfw_functions( w, GLFW_WIN_HEIGHT )
+#define bs_WinMaxCol( w )                  glfw_functions( w, GLFW_WIN_MAXCOL )
+#define bs_WinMaxRow( w )                  glfw_functions( w, GLFW_WIN_MAXROW )
 #define bs_WinMaximized( w )               glfw_functions( w, GLFW_WIN_MAXIMIZED )
 #define bs_PollEvents( w )                 glfw_functions( w, GLFW_POLLEVENTS )
 #define bs_WaitEvents( w )                 glfw_functions( w, GLFW_WAITEVENTS )
