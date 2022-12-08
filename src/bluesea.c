@@ -74,7 +74,7 @@ static double *coord( cairo_t *cr, double x, double y )
    return a;
 }
 
-static char *malloc_strdup( const char *text )
+static const char *malloc_strdup( const char *text )
 {
    size_t len = strlen( text ) + 1;
    return memcpy( malloc( len ), text, len );
@@ -535,11 +535,13 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
    case GLFW_WIN_MAXCOL:
 
       ret = w->width / 9;
+      printf( "w->width %i \n", ret );
       break;
 
    case GLFW_WIN_MAXROW:
 
       ret = w->height / 18;
+      printf( "w->height %i \n", ret );
       break;
 
    case GLFW_WIN_MAXIMIZED:
