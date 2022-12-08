@@ -477,10 +477,8 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_face( w->cr, w->ff );
       cairo_set_font_size( w->cr, 18 );
       cairo_font_extents( w->cr, &w->fe );
-      par2 = par2 * 9;
-      par3 = par3 * 18 + w->fe.ascent + w->fe.descent;
       hex_to_rgb( w->cr, par4 );
-      cairo_move_to( w->cr, par2, par3 );
+      cairo_move_to( w->cr, par2 * 9, par3 * 18 + w->fe.ascent + w->fe.descent );
       cairo_show_text( w->cr, par1 ? malloc_strdup( par1 ) : NULL );
       break;
 
