@@ -460,7 +460,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, 18 );
       hex_to_rgb( w->cr, par4 );
       cairo_move_to( w->cr, par2, par3 );
-      cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL );
+      cairo_show_text( w->cr, par1 ? malloc_strdup( par1 ) : NULL );
       break;
 
    case TEXT_EXTRA:
@@ -469,7 +469,22 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, par4 );
       hex_to_rgb( w->cr, par5 );
       cairo_move_to( w->cr, par2, par3 );
-      cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL );
+      cairo_show_text( w->cr, par1 ? malloc_strdup( par1 ) : NULL );
+      break;
+
+   case TEXT_DISPOUTAT:
+
+      cairo_font_extents_t fe;
+
+      cairo_set_font_face( w->cr, w->ff );
+      cairo_set_font_size( w->cr, 18 );
+      cairo_font_extents( w->cr, &fe );
+      par2 = par2 * 9;
+      par3 = par3 * 18 + fe.ascent + fe.descent;
+      hex_to_rgb( w->cr, par4 );
+      cairo_move_to( w->cr, par2, par3 );
+      cairo_scale( w->cr, 1.0, 1.0),
+      cairo_show_text( w->cr, par1 ? malloc_strdup( par1 ) : NULL );
       break;
 
    case TEXT_WIDTH:

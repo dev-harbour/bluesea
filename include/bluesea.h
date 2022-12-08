@@ -197,6 +197,7 @@ typedef enum iText
    TEXT_FREE_TYPE,
    TEXT_CONST,
    TEXT_EXTRA,
+   TEXT_DISPOUTAT,
    TEXT_WIDTH,
    TEXT_HEIGHT,
    SIZE_OF_TEXT
@@ -315,6 +316,7 @@ int  glfw_functions();
 #define bs_FreeType( w, fileName )                 text_functions( w, TEXT_FREE_TYPE, fileName )
 #define bs_Text( w, text, x, y, hexColor )         text_functions( w, TEXT_CONST, text, x, y, hexColor )
 #define bs_TextEx( w, text, x, y, size, hexColor ) text_functions( w, TEXT_EXTRA, text, x, y, size, hexColor )
+#define bs_DispOutAt( w, text, x, y, hexColor )    text_functions( w, TEXT_DISPOUTAT, text, x, y, hexColor )
 #define bs_TextWidth( w, text, size )              text_functions( w, TEXT_WIDTH, text, size )
 #define bs_TextHeight( w, text, size )             text_functions( w, TEXT_HEIGHT, text, size )
 
