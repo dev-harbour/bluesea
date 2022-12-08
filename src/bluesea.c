@@ -460,7 +460,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, 18 );
       hex_to_rgb( w->cr, par4 );
       cairo_move_to( w->cr, par2, par3 );
-      cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL ); // this is contradictory but added
+      cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL );
       break;
 
    case TEXT_EXTRA:
@@ -469,7 +469,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, par4 );
       hex_to_rgb( w->cr, par5 );
       cairo_move_to( w->cr, par2, par3 );
-      cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL ); // this is contradictory but added
+      cairo_show_text( w->cr, (const char *) par1 ? malloc_strdup( par1 ) : NULL );
       break;
 
    case TEXT_WIDTH:
