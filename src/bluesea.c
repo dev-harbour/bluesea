@@ -535,13 +535,11 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
    case GLFW_WIN_MAXCOL:
 
       ret = w->width / 9;
-      printf( "w->width %i \n", ret );
       break;
 
    case GLFW_WIN_MAXROW:
 
       ret = w->height / 18;
-      printf( "w->height %i \n", ret );
       break;
 
    case GLFW_WIN_MAXIMIZED:
