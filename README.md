@@ -6,6 +6,8 @@ Playground with graphics, with the use of [GLFW](https://www.glfw.org/) and [Cai
 
 For more info see [getting started](examples/README.md).
 
+### Examples
+
 ``` c
 #include "bluesea.h"
 

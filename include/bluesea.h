@@ -316,12 +316,12 @@ int  glfw_functions();
 #define bs_Triangle( w, x, y, x1, y1, x2, y2, hexColor )           cairo_functions( w, CAIRO_TRIANGLE, x, y, x1, y1, x2, y2, hexColor )
 #define bs_TriangleFilled( w, x, y, x1, y1, x2, y2, hexColor )     cairo_functions( w, CAIRO_TRIANGLE_FILLED, x, y, x1, y1, x2, y2, hexColor )
 
-#define bs_FreeType( w, fileName )                 text_functions( w, TEXT_FREE_TYPE, fileName )
-#define bs_Text( w, text, x, y, hexColor )         text_functions( w, TEXT_CONST, text, x, y, hexColor )
-#define bs_TextEx( w, text, x, y, size, hexColor ) text_functions( w, TEXT_EXTRA, text, x, y, size, hexColor )
-#define bs_DispOutAt( w, text, x, y, hexColor )    text_functions( w, TEXT_DISPOUTAT, text, x, y, hexColor )
-#define bs_TextWidth( w, text, size )              text_functions( w, TEXT_WIDTH, text, size )
-#define bs_TextHeight( w, text, size )             text_functions( w, TEXT_HEIGHT, text, size )
+#define bs_FreeType( w, fileName )                  text_functions( w, TEXT_FREE_TYPE, fileName )
+#define bs_Text( w, text, x, y, hexColor )          text_functions( w, TEXT_CONST, text, x, y, hexColor )
+#define bs_TextEx( w, text, x, y, size, hexColor )  text_functions( w, TEXT_EXTRA, text, x, y, size, hexColor )
+#define bs_DispOutAt( w, text, col, row, hexColor ) text_functions( w, TEXT_DISPOUTAT, text, col, row, hexColor )
+#define bs_TextWidth( w, text, size )               text_functions( w, TEXT_WIDTH, text, size )
+#define bs_TextHeight( w, text, size )              text_functions( w, TEXT_HEIGHT, text, size )
 
 #define bs_GetKey( w, key )                glfw_functions( w, GLFW_GET_KEY, key )
 #define bs_GetMouseButton( w, button )     glfw_functions( w, GLFW_GET_MOUSEBUTTON, button )

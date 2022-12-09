@@ -64,7 +64,7 @@ static void hex_to_rgb( cairo_t *cr, uint32_t hexColor )
 
 static double *coord( cairo_t *cr, double x, double y )
 {
-   double *a =  malloc( sizeof( double[ 2 ] ) );
+   double *a = malloc( sizeof( double[ 2 ] ) );
 
    cairo_user_to_device( cr, &x, &y );
 
@@ -163,7 +163,7 @@ void begin_drawing( pBlueSea w )
       w->sf = cairo_win32_surface_create_with_format( w->dc, CAIRO_FORMAT_ARGB32 );
       cairo_destroy( w->cr );
       w->cr = cairo_create( w->sf );
-      cairo_surface_destroy( w->sf );
+      //cairo_surface_destroy( w->sf );
       w->tmp_width  = w->width;
       w->tmp_height = w->height;
    }

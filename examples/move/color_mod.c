@@ -12,7 +12,7 @@ int main( void )
    int mod, col, row;
    const char *c;
 
-   app = bs_CreateWindow( 820, 450, "Ascii characters" );
+   app = bs_CreateWindow( 830, 450, "Ascii characters box drawing" );
 
    bs_FreeType( app, "../../font/9x18.bdf" );
 
@@ -22,20 +22,20 @@ int main( void )
 
          bs_Background( app, 0x006994 );
 
-         for( mod = 0; mod < 3; mod++ )
+         for( mod = 0; mod <= 2; mod++ )
          {
-            for( row = 0; row <= 10; row++ )
+            for( row = 0; row <= 24; row++ )
             {
-               for( col = 0; col <= 20; col++ )
+               for( col = 0; col <= 91; col++ )
                {
                   if(      col == 0  && row == 0 )  c = "┌";
-                  else if( col == 0  && row == 10 ) c = "└";
+                  else if( col == 0  && row == 24 ) c = "└";
                   else if( col == 0 )               c = "├";
-                  else if( col == 20 && row == 0 )  c = "┐";
-                  else if( col == 20 && row == 10 ) c = "┘";
-                  else if( col == 20 )              c = "┤";
+                  else if( col == 91 && row == 0 )  c = "┐";
+                  else if( col == 91 && row == 24 ) c = "┘";
+                  else if( col == 91 )              c = "┤";
                   else if(              row == 0 )  c = "┬";
-                  else if(              row == 10 ) c = "┴";
+                  else if(              row == 24 ) c = "┴";
                   else                              c = "┼";
 
                   bs_DispOutAt( app, c, col, row, Color( col, row + mod ) );
