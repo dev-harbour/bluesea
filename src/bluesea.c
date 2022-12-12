@@ -74,12 +74,6 @@ static double *coord( cairo_t *cr, double x, double y )
    return a;
 }
 
-static const char *malloc_strdup( const char *text )
-{
-   size_t len = strlen( text ) + 1;
-   return memcpy( malloc( len ), text, len );
-}
-
 /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 // API functions
 pBlueSea bs_CreateWindow( int width, int height, const char *title )
@@ -144,7 +138,8 @@ bool bs_CloseWindow( pBlueSea w )
    FT_Done_FreeType( w->library );
 
    cairo_font_face_destroy( w->ff );
-
+   cairo_surface_destroy( w->sf );
+   cairo_destroy( w->cr );
    glfwDestroyWindow( w->window );
    free( w );
    glfwTerminate();
@@ -160,10 +155,10 @@ void begin_drawing( pBlueSea w )
 #if defined( GLFW_EXPOSE_NATIVE_WIN32 )
    if( w->tmp_width != w->width || w->tmp_height != w->height )
    {
+      cairo_surface_destroy( w->sf );
       w->sf = cairo_win32_surface_create_with_format( w->dc, CAIRO_FORMAT_ARGB32 );
       cairo_destroy( w->cr );
       w->cr = cairo_create( w->sf );
-      //cairo_surface_destroy( w->sf );
       w->tmp_width  = w->width;
       w->tmp_height = w->height;
    }
@@ -429,7 +424,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
 {
    int ret = 1;
    FT_Error error;
-   static cairo_user_data_key_t key;
+   cairo_user_data_key_t key;
 
    switch( type )
    {
@@ -459,7 +454,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, 18 );
       hex_to_rgb( w->cr, par4 );
       cairo_move_to( w->cr, par2, par3 );
-      cairo_show_text( w->cr, par1 ? malloc_strdup( par1 ) : NULL );
+      cairo_show_text( w->cr, par1 );
       break;
 
    case TEXT_EXTRA:
@@ -468,7 +463,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, par4 );
       hex_to_rgb( w->cr, par5 );
       cairo_move_to( w->cr, par2, par3 );
-      cairo_show_text( w->cr, par1 ? malloc_strdup( par1 ) : NULL );
+      cairo_show_text( w->cr, par1 );
       break;
 
    case TEXT_DISPOUTAT:
@@ -478,7 +473,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_font_extents( w->cr, &w->fe );
       hex_to_rgb( w->cr, par4 );
       cairo_move_to( w->cr, par2 * 9, par3 * 18 + w->fe.ascent + w->fe.descent - w->fe.descent );
-      cairo_show_text( w->cr, par1 ? malloc_strdup( par1 ) : NULL );
+      cairo_show_text( w->cr, par1 );
       break;
 
    case TEXT_WIDTH:
