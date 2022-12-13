@@ -470,9 +470,8 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
 
       cairo_set_font_face( w->cr, w->ff );
       cairo_set_font_size( w->cr, 18 );
-      cairo_font_extents( w->cr, &w->fe );
       hex_to_rgb( w->cr, par4 );
-      cairo_move_to( w->cr, par2 * 9, par3 * 18 + w->fe.ascent + w->fe.descent - w->fe.descent );
+      cairo_move_to( w->cr, par2 * 9, par3 * 18 + 14 );
       cairo_show_text( w->cr, par1 );
       break;
 
@@ -490,6 +489,11 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       cairo_set_font_size( w->cr, par2 );
       cairo_text_extents( w->cr, par1, &w->te );
       ret = w->te.height;
+      break;
+
+   case TEXT_WINDOWTITLE:
+
+      glfwSetWindowTitle( w->window, par1 );
       break;
 
    default:
@@ -553,7 +557,7 @@ int glfw_functions( pBlueSea w, iGlfw type, int par1 )
 
    case GLFW_WAITEVENTSTIMEOUT:
 
-      glfwWaitEventsTimeout( par1 );
+      glfwWaitEventsTimeout( ( double ) par1 );
       break;
 
    default:

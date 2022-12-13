@@ -200,6 +200,7 @@ typedef enum iText
    TEXT_DISPOUTAT,
    TEXT_WIDTH,
    TEXT_HEIGHT,
+   TEXT_WINDOWTITLE,
    SIZE_OF_TEXT
 } iText;
 
@@ -255,7 +256,6 @@ typedef struct _BlueSea
    cairo_t             *cr;
    cairo_font_face_t   *ff;
    cairo_text_extents_t te;
-   cairo_font_extents_t fe;
    // FreeType
    FT_Library           library;
    FT_Face              face;
@@ -322,6 +322,7 @@ int  glfw_functions();
 #define bs_DispOutAt( w, text, col, row, hexColor ) text_functions( w, TEXT_DISPOUTAT, text, col, row, hexColor )
 #define bs_TextWidth( w, text, size )               text_functions( w, TEXT_WIDTH, text, size )
 #define bs_TextHeight( w, text, size )              text_functions( w, TEXT_HEIGHT, text, size )
+#define bs_WindowTitle( w, text )                   text_functions( w, TEXT_WINDOWTITLE, text )
 
 #define bs_GetKey( w, key )                glfw_functions( w, GLFW_GET_KEY, key )
 #define bs_GetMouseButton( w, button )     glfw_functions( w, GLFW_GET_MOUSEBUTTON, button )
