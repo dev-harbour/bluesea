@@ -12,7 +12,7 @@ int main( void )
    int mod, col, row;
    const char *c;
 
-   app = bs_CreateWindow( 830, 450, "Ascii characters box drawing" );
+   app = bs_CreateWindow( 830, 450, "bs_DispOutAt( w, text, col, row, hexColor )" );
 
    bs_FreeType( app, "../../font/9x18.bdf" );
 
