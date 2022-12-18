@@ -437,7 +437,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
          exit( EXIT_FAILURE );
       }
 
-      error = FT_New_Face( w->library, par1, 0, &w->face);
+      error = FT_New_Face( w->library, par1, 0, &w->face );
       if( error )
       {
          fprintf( stderr, "Error %d opening %s \n", error, par1 );

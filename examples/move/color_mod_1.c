@@ -40,7 +40,6 @@ int main( void )
 
                      bs_DispOutAt( app, c, col, row, Color( col, row + mod ) );
                   }
-
                }
 
          bs_WaitEventsTimeout( app, 1.0 );
