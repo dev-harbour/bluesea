@@ -445,7 +445,7 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       }
 
       w->ff = cairo_ft_font_face_create_for_ft_face( w->face, 0 );
-      cairo_font_face_set_user_data( w->ff, &key, (void *) w->face, NULL );
+
       break;
 
    case TEXT_CONST:
