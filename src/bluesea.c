@@ -423,12 +423,12 @@ int cairo_functions( pBlueSea w, iCairo type, int par1, int par2, int par3, int 
 int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3, int par4, int par5  )
 {
    int ret = 1;
-   FT_Error error;
-   cairo_user_data_key_t key;
 
    switch( type )
    {
    case TEXT_FREE_TYPE:
+
+      FT_Error error;
 
       error = FT_Init_FreeType( &w->library );
       if( error )
@@ -445,7 +445,6 @@ int text_functions( pBlueSea w, iText type, const char *par1, int par2, int par3
       }
 
       w->ff = cairo_ft_font_face_create_for_ft_face( w->face, 0 );
-
       break;
 
    case TEXT_CONST:
